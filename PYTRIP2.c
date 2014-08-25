@@ -27,11 +27,11 @@ int main(void)
  
         numtriple = 0;
         
-        // start from end, till (start - 2) as the hypotenuse
+        // start from end, till (start + 2) as the hypotenuse
         for(i = end; i > start + 1 ; i--)
         {
               diff = 0;
-              /* start from i-1 as the larger side till start - 1, considering 'start' will be the final minimum side
+              /* start from i-1 as the larger side till start + 1, considering 'start' will be the final minimum side
                  considering: side1 * side1 + side2 * side2 = hypotenuse * hypotenuse, ------- equation (A)
                  side 2 > side 1
                  => side 2 * side 2 > side 1 * side 1
@@ -44,7 +44,10 @@ int main(void)
                     /* here the intention is find whether the diff of squares of i & j is a perfect square
                      on data analysis, we can arrive that the difference can be calculated as below without actually 
                      calculating the difference between squares:
-                    num          square    difference = square(num) - square(num+1)
+                     (a+1) * (a+1) - (a*a) 
+                     = (a*a+1+2a)-(a*a) 
+                     = 2a + 1
+                    num          square    difference = square(num+1) - square(num)
                     1	         1            1*2 + 1
                     2	         4            2*2 + 1
                     3	         9            3*2 + 1
@@ -52,7 +55,7 @@ int main(void)
                     5	         25          */
 
                     diff += j*2 + 1;
-                    // following function returns -1 if the diff is not a perfect square of an integer <= start
+                    // following function returns -1 if the diff is not a perfect square or an integer <= start
                     d = intsqrt(diff, start);
                     // if d is found to be perfect square but not equal to larger side, then increment the count
                     if ((d >0) && (d != j))
